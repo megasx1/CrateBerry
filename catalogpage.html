@@ -1,0 +1,54 @@
+<html>
+    <head> 
+    </head>
+    <body>
+        
+        <select id="catagories" onchange="loadData()">
+            <option value="horns"> horns</option>
+            <option value="drumloops">drum loops</option>
+            <option value="melodies"> melodies</option>
+        </select>
+        
+        <div id='display'> </div>
+        <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyCRMUmqbnnwDb1RkVyMUApKMq9lu6Ayf5E",
+            authDomain: "crate-berry.firebaseapp.com",
+            databaseURL: "https://crate-berry.firebaseio.com",
+            projectId: "crate-berry",
+            storageBucket: "crate-berry.appspot.com",
+            messagingSenderId: "944150635959"
+          };
+          firebase.initializeApp(config);
+
+            function loadData(){
+                
+                var display = document.getElementById("display");
+                var catagories = document.getElementById("catagories");
+                
+                firebase.database().ref("music/" + catagories.value).on("value" , function(snapshot){
+                    for( i in snapshot.val() ){
+                        var music = document.createElement('audio');
+                        music.setAttribute("controls", "true");
+                        
+                        var source=document.createElement("source");
+                        source.setAttribute("src", snapshot.val()[i].URL);
+                        
+                        music.appendChild(source);
+
+                        display.appendChild(music);
+                        
+                        var name = document.createElement("p");
+                        name.innerHTML=snapshot.val()[i].name;
+                        display.appendChild(name);
+                        
+                    }
+                });
+            }
+
+        </script>
+
+    </body>
+</html>
