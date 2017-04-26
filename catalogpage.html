@@ -1,12 +1,58 @@
 <html>
-    <head> 
+    <head>
+    
+		<title>Welcome to Crate Berry a samplers paradise</title>
+
+		<style type="text/css">
+			body{
+				background-color:#000;
+                width:100%;
+	position:relative;
+	background: url(https://static.pexels.com/photos/167092/pexels-photo-167092.jpeg) no-repeat top center;
+    background-size: cover;
+    height: auto;
+			}
+            .topnav{
+                
+            
+            }
+            .topnav p{
+                display: inline-block;
+                background-color: #ff00e1;
+                padding: 5px;
+                font-size: 24px;
+            }
+            .topnav p a {
+                text-decoration: none;
+                color: white;
+            }
+            .topnav p:hover{
+                background-color: #63425f
+            }
+		</style>
+	
+        
     </head>
     <body>
+        <a href="index.html"><img src="images/Logomakr_0w08Vd.png" width="200px"> </a>
+
+		<div class="topnav" id="mytopnav">
+			<p> <a href="index.html">home page</a> </p>
+			<p> <a href="aboutus.html">about us</a> </p>
+            <p> <a href="catalogpage.html">catalog</a> </p>
+        </div>
+            
+           
+        
         
         <select id="catagories" onchange="loadData()">
             <option value="horns"> horns</option>
             <option value="drumloops">drum loops</option>
             <option value="melodies"> melodies</option>
+            <option value="pianoloops">pianoloops</option>
+            <option value="vocals">vocals</option>
+            
+            
         </select>
         
         <div id='display'> </div>
