@@ -7,30 +7,89 @@
 		<style type="text/css">
 			body{
 				background-color:#000;
+                width:100%;
+	position:relative;
+	background: url(https://static.pexels.com/photos/264544/pexels-photo-264544.jpeg) no-repeat top center;
+    background-size: cover;
+    height: auto;
 			}
+            .topnav{
+                
+            
+            }
+            .topnav p{
+                display: inline-block;
+                background-color: #ff00e1;
+                padding: 5px;
+                font-size: 24px;
+            }
+            .topnav p a {
+                text-decoration: none;
+                color: white;
+            }
+            .topnav p:hover{
+                background-color: #63425f
+            }
+            p{
+                text-align: center;
+                text-shadow: 5px 5px rgba(0,0,0,0.5);
+                color: #00e6e6;
+                font-size: 45px
+            }
+             h1{
+                text-align: center;
+                text-shadow: 5px 5px rgba(0,0,0,0.5);
+                color: #00ccff;
+                font-size: 60px
+            }
+            
+            .blackbox{
+                background-color: rgba(0,0,0,0.5);
+                color:white;
+            }  
+            
+            .directory{
+                background-color:rgba(204, 0, 204,0.5);
+                color: white
+                height: 70px;
+                width: 400px;
+                
+              
+            }
 		</style>
 	</head>
 	<body> 
-        
+       <a href="index.html"><img src="images/Logomakr_0w08Vd.png" width="200px"> </a>
 
 		<div class="topnav" id="mytopnav">
-			<a href="index.html">home page</a>
-			<a href="aboutus.html">about us</a>
-			<a href="contactpage.html">Contact</a>
-            <a href="catalogpage.html">catalog</a>
-            <input type="search" name="googlesearch">
-            <input type="submit">
-
+			<p> <a href="index.html">home page</a> </p>
+			<p> <a href="aboutus.html">about us</a> </p>
+            <p> <a href="catalogpage.html">catalog</a> </p>
+            
 		</div>
+        <div> 
+            <h1 class="blackbox"> Welcome to Crate Berry</h1>
+            <p class="blackbox">To UPLOAD new sounds just use the drop down interface and choose your catagory.Then find your selected file on your PC and click  it and wait for your file to finish loading. Then check the catalog page to preview your new sounds.</p>
+        </div>
         
-        <select id="catagories">
-            <option value="horns"> horns</option>
-            <option value="drumloops">drum loops</option>
-            <option value="melodies">melodies</option>
-            <option value="pianoloops">piano loops</option>
-            <option value="melodies">vocals</option>
-        </select>
-        <input id="uploader" type="file" onchange="upload()">
+        <div class="directory">
+            <select id="catagories">
+                <option value="horns"> horns</option>
+                <option value="drumloops">drum loops</option>
+                <option value="melodies"> melodies</option>
+                <option value="pianoloops">pianoloops</option>
+                <option value="vocals">vocals</option>
+            </select>
+            <input id="uploader" type="file" onchange="upload()">
+            <progress value="0" max="100" id="progress">0%</progress>
+        </div>
+        <h1 class="blackbox">When UPLOADING have your file a single word no special characters (etc -,.) in your filename.</h1>
+        
+        <p class="blackbox"> Crate Berry because finding"That part" is always sweet.</p>
+        
+        
+        
+        
 
         <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
         <script>
@@ -47,11 +106,15 @@
             
             function upload(){
                 var files = document.getElementById("uploader").files;
+                var progress = document.getElementById("progress");
                 var catagory = document.getElementById("catagories");
                 var uploadTask = firebase.storage().ref("music/" + catagory.value + "/" + files[0].name).put(files[0]);
 
                 uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
-                             function(snapshot){},
+                             function(snapshot){
+                                var percentage = (snapshot.bytesTransferred /snapshot.totalBytes)* 100;
+                                progress.value = percentage;
+                            },
                              function(error){},
                              function(){
                                  var filename = uploadTask.snapshot.metadata.name;
@@ -65,8 +128,10 @@
                 );
             }
         </script> 
-
+         
         
+        
+   
 	</body>
 
 </html>
